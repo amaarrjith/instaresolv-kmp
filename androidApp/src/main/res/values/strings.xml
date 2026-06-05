@@ -16,13 +16,19 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="designation">Designation</string>
     <string name="company">Company</string>
-    <string name="privacy_policy_message">I\'ve read and agree with the</string>
-    <string name="terms_and_conditions">Terms and Conditions</string>
-    <string name="and_the">and the</string>
-    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_policy_message">I\'ve read and agree with the  </string>
+    <string name="terms_and_conditions">  Terms and Conditions </string>
+    <string name="and_the">  and the  </string>
+    <string name="privacy_policy">  Privacy Policy</string>
     <string name="welcome_to_instaresolv">Welcome to InstaResolv</string>
     <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</string>
     <string name="dimentum_aliquam">Dimentum aliquam\n</string>
     <string name="donec_posuerunc_cursus_eu">donec posuerunc cursus eu</string>
     <string name="welcome_to">Welcome to</string>
+    <string name="verify_otp">Verify Email OTP</string>
+    <string name="verify_otp_message">A 4-digit OTP code will be send to your registered email address</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="continue_text">Continue</string>
+    <string name="forgot_password_description">Enter your email ID, and we’ll send you a link to reset your password.</string>
+    <string name="reset_password">Reset Password</string>
 </resources>

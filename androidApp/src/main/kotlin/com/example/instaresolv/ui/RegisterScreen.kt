@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,11 +39,13 @@ import com.example.instaresolv.R
 import com.example.instaresolv.colors.AppColors
 import com.example.instaresolv.typography.textStyle
 import com.example.instaresolv.utilites.AppBorderButton
+import com.example.instaresolv.utilites.AppPrimaryButton
 import com.example.instaresolv.utilites.AppTextField
 
 @Composable
 fun RegisterScreen(
-    isLoginClicked: () -> Unit
+    isLoginClicked: () -> Unit,
+    isRegisterCompleted: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -47,7 +56,9 @@ RegisterScreenContent(
     isLoginClicked = {
         isLoginClicked()
     },
-    isRegisterCompleted = {},
+    isRegisterCompleted = {
+        isRegisterCompleted()
+    },
     isTermsClicked = {}
 ) { }
 }
@@ -65,15 +76,16 @@ fun RegisterScreenContent(
     val confirmPassword = remember { mutableStateOf("") }
     val designation = remember { mutableStateOf("") }
     val company = remember { mutableStateOf("") }
-    val isTermsAccepted = remember { mutableStateOf(false) }
+    var isTermsAccepted = remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(horizontal = 28.dp)
+            .padding(bottom = 70.dp)
     ) {
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(94.dp))
         Text(
             text = stringResource(R.string.register),
             style = textStyle(
@@ -185,8 +197,132 @@ fun RegisterScreenContent(
             placeholder = stringResource(R.string.company)
         )
         Spacer(modifier = Modifier.height(20.dp))
+        Row() {
+            val id = if (isTermsAccepted.value) {
+                R.drawable.ic_checkbox_on
+            } else {
+                R.drawable.ic_checkbox_off
+            }
+            Image(
+                painter = painterResource(id),
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    isTermsAccepted.value = !isTermsAccepted.value
+                }
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            TermsAndPrivacyText(
+                onTermsClick = {
+                    isTermsClicked()
+
+                },
+                onPrivacyClick = {
+                    isPrivacyClicked()
+                }
+            )
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        AppPrimaryButton(
+            title = stringResource(R.string.register),
+            onClick = {
+                isRegisterCompleted()
+            }
+        )
 
     }
+}
+
+@Composable
+fun TermsAndPrivacyText(
+    onTermsClick: () -> Unit,
+    onPrivacyClick: () -> Unit
+) {
+    val normalStyle = textStyle(
+        size = 12.sp,
+        weight = FontWeight.Medium,
+        color = AppColors.DarkGray
+    ).toSpanStyle()
+
+    val linkStyle = textStyle(
+        size = 12.sp,
+        weight = FontWeight.Medium,
+        color = AppColors.Primary
+    ).toSpanStyle()
+
+    val annotatedText = buildAnnotatedString {
+
+        withStyle(normalStyle) {
+            append(stringResource(R.string.privacy_policy_message))
+            append(" ")
+            // "I've read and agree with the "
+        }
+
+        pushStringAnnotation(
+            tag = "TERMS",
+            annotation = "terms"
+        )
+        withStyle(linkStyle) {
+            append(stringResource(R.string.terms_and_conditions))
+            append(" ")
+            // "Terms and Conditions"
+        }
+        pop()
+
+        withStyle(normalStyle) {
+            append(stringResource(R.string.and_the))
+            append(" ")
+            // " and the "
+        }
+
+        pushStringAnnotation(
+            tag = "PRIVACY",
+            annotation = "privacy"
+        )
+        withStyle(linkStyle) {
+            append(stringResource(R.string.privacy_policy))
+            // "Privacy Policy"
+        }
+        pop()
+
+        withStyle(normalStyle) {
+            append(".")
+        }
+    }
+
+    ClickableText(
+        text = annotatedText,
+        style = TextStyle(
+            fontSize = 12.sp,
+            lineHeight = 19.sp,
+            fontWeight = FontWeight.Medium,
+            color = AppColors.Primary,
+            textAlign = TextAlign.Start
+        ),
+        onClick = { offset ->
+
+            annotatedText
+                .getStringAnnotations(
+                    tag = "TERMS",
+                    start = offset,
+                    end = offset
+                )
+                .firstOrNull()
+                ?.let {
+                    onTermsClick()
+                }
+
+            annotatedText
+                .getStringAnnotations(
+                    tag = "PRIVACY",
+                    start = offset,
+                    end = offset
+                )
+                .firstOrNull()
+                ?.let {
+                    onPrivacyClick()
+                }
+        }
+    )
 }
 
 @Preview
@@ -194,7 +330,9 @@ fun RegisterScreenContent(
 fun RegisterScreenPreview(
     showBackground: Boolean = true
 ) {
-    RegisterScreen() {
+    RegisterScreen(
+        isLoginClicked = { }
+    ) {
         
     }
 }
