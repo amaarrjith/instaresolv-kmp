@@ -13,7 +13,7 @@ kotlin {
 }
 dependencies {
     implementation(projects.sharedUI)
-
+    implementation(compose.material3)
     implementation(libs.androidx.activity.compose)
 
     implementation(libs.compose.uiToolingPreview)

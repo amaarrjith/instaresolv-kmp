@@ -1,0 +1,200 @@
+package com.example.instaresolv.ui
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.instaresolv.R
+import com.example.instaresolv.colors.AppColors
+import com.example.instaresolv.typography.textStyle
+import com.example.instaresolv.utilites.AppBorderButton
+import com.example.instaresolv.utilites.AppTextField
+
+@Composable
+fun RegisterScreen(
+    isLoginClicked: () -> Unit
+) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+            .background(Color.White)
+
+    )
+RegisterScreenContent(
+    isLoginClicked = {
+        isLoginClicked()
+    },
+    isRegisterCompleted = {},
+    isTermsClicked = {}
+) { }
+}
+
+@Composable
+fun RegisterScreenContent(
+    isLoginClicked: () -> Unit,
+    isRegisterCompleted: () -> Unit,
+    isTermsClicked: () -> Unit,
+    isPrivacyClicked: () -> Unit
+) {
+    val fullName = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
+    val confirmPassword = remember { mutableStateOf("") }
+    val designation = remember { mutableStateOf("") }
+    val company = remember { mutableStateOf("") }
+    val isTermsAccepted = remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+            .padding(horizontal = 28.dp)
+    ) {
+        Spacer(modifier = Modifier.height(50.dp))
+        Text(
+            text = stringResource(R.string.register),
+            style = textStyle(
+                size = 21.sp,
+                weight = FontWeight.Bold
+            ),
+            color = AppColors.BlackText
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Row() {
+            Text(
+                text = stringResource(R.string.already_have_account),
+                style = textStyle(
+                    size = 14.sp,
+                    weight = FontWeight.Normal
+                ),
+                color = AppColors.BlackText
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(
+                modifier = Modifier.clickable {
+                    isLoginClicked()
+                },
+                text = stringResource(R.string.login_now),
+                style = textStyle(
+                    size = 14.sp,
+                    weight = FontWeight.SemiBold
+                ),
+                color = AppColors.Primary
+            )
+        }
+        Spacer(modifier = Modifier.height(50.dp))
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.ic_avatar),
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                AppBorderButton(
+                    title = stringResource(R.string.upload_profile),
+                    onClick = {
+
+                    },
+                    modifier = Modifier.width(150.dp)
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        AppTextField(
+            value = fullName.value,
+            onValueChange = {
+                fullName.value = it
+            },
+            title = stringResource(R.string.full_name),
+            placeholder = stringResource(R.string.full_name)
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        AppTextField(
+            value = email.value,
+            onValueChange = {
+                email.value = it
+            },
+            title = stringResource(R.string.email_id),
+            placeholder = stringResource(R.string.email_placeholder)
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        AppTextField(
+            value = password.value,
+            onValueChange = {
+                password.value = it
+            },
+            title = stringResource(R.string.password),
+            placeholder = stringResource(R.string.password_placeholder),
+            isSecure = true
+
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        AppTextField(
+            value = confirmPassword.value,
+            onValueChange = {
+                confirmPassword.value = it
+            },
+            title = stringResource(R.string.confirm_password),
+            placeholder = stringResource(R.string.confirm_password),
+            isSecure = true
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        AppTextField(
+            value = designation.value,
+            onValueChange = {
+                designation.value = it
+            },
+            title = stringResource(R.string.designation),
+            placeholder = stringResource(R.string.designation)
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        AppTextField(
+            value = company.value,
+            onValueChange = {
+                company.value = it
+            },
+            title = stringResource(R.string.company),
+            placeholder = stringResource(R.string.company)
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+
+    }
+}
+
+@Preview
+@Composable
+fun RegisterScreenPreview(
+    showBackground: Boolean = true
+) {
+    RegisterScreen() {
+        
+    }
+}

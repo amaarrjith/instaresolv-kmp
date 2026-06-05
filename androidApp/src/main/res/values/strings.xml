@@ -1,5 +1,25 @@
 <resources>
     <string name="app_name">InstaResolv</string>
+    <string name="login">Login</string>
+    <string name="not_a_member">Not a member ?</string>
+    <string name="register_now">Register Now</string>
+    <string name="full_name">Full Name</string>">
+    <string name="email_id">Email Id</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="email_placeholder">Your registered email</string>
+    <string name="password_placeholder">Your pasword</string>
+    <string name="register">Register</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="login_now">Login Now</string>
+    <string name="upload_profile">Upload Profile</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="designation">Designation</string>
+    <string name="company">Company</string>
+    <string name="privacy_policy_message">I\'ve read and agree with the</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="and_the">and the</string>
+    <string name="privacy_policy">Privacy Policy</string>
     <string name="welcome_to_instaresolv">Welcome to InstaResolv</string>
     <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_sed_do_eiusmod_tempor_incididunt_ut_labore">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</string>
     <string name="dimentum_aliquam">Dimentum aliquam\n</string>
