@@ -1,0 +1,4 @@
+package com.example.instaresolv
+
+fun sayHello(to: String): String =
+    "Hello, $to!"
