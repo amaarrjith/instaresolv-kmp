@@ -11,7 +11,11 @@ fun AppNavigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screens.Splash.route) {
         composable(Screens.Splash.route) {
-            SplashScreen() { }
+            SplashScreen(
+                onNavigateToWelcomeScreen = {  },
+                onNavigateToLogin = {  },
+                onNavigateToHome = {  }
+            )
         }
     }
 
