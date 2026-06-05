@@ -19,7 +19,11 @@ dependencies {
     implementation(libs.compose.uiToolingPreview)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.foundation)
+    implementation("androidx.compose.foundation:foundation:1.4.0")
+    implementation(libs.androidx.foundation.layout)
+    implementation(libs.material3)
     debugImplementation(libs.compose.uiTooling)
+    implementation(libs.androidx.material3)
 }
 
 android {
