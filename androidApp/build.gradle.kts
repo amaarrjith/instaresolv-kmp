@@ -11,19 +11,20 @@ kotlin {
         jvmTarget = JvmTarget.JVM_11
     }
 }
+
 dependencies {
     implementation(projects.sharedUI)
-    implementation(compose.material3)
+    implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
-
     implementation(libs.compose.uiToolingPreview)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.foundation)
-    implementation("androidx.compose.foundation:foundation:1.4.0")
     implementation(libs.androidx.foundation.layout)
     implementation(libs.material3)
     debugImplementation(libs.compose.uiTooling)
     implementation(libs.androidx.material3)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 }
 
 android {

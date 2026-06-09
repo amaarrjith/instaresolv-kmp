@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.instaresolv.R
 import androidx.compose.material3.Text
@@ -27,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.instaresolv.colors.AppColors
+import com.example.instaresolv.login.LoginViewModel
 import com.example.instaresolv.typography.textStyle
 import com.example.instaresolv.utilites.AppPrimaryButton
 import com.example.instaresolv.utilites.AppTextField
@@ -35,8 +35,10 @@ import com.example.instaresolv.utilites.AppTextField
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
     navigateToRegister: () -> Unit,
-    navigateToForgetPassword: () -> Unit
+    navigateToForgetPassword: () -> Unit,
+    vm: LoginViewModel
 ) {
+    val uiState = vm.uiState
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -44,7 +46,8 @@ fun LoginScreen(
     ) {
         LoginScreenContent(
             navigateToRegister = navigateToRegister,
-            navigateToForgetPassword = navigateToForgetPassword
+            navigateToForgetPassword = navigateToForgetPassword,
+            viewModel = vm
         )
     }
 }
@@ -52,7 +55,8 @@ fun LoginScreen(
 @Composable
 fun LoginScreenContent(
     navigateToRegister: () -> Unit,
-    navigateToForgetPassword: () -> Unit
+    navigateToForgetPassword: () -> Unit,
+    viewModel: LoginViewModel
 ) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -110,14 +114,17 @@ fun LoginScreenContent(
             Spacer(modifier = Modifier.height(50.dp))
             AppTextField(
                 value = email.value,
-                onValueChange = { email.value = it},
+                onValueChange = { email.value = it
+                                viewModel.updateEmail(email.value)
+                                },
                 title = stringResource(R.string.email_id),
                 placeholder = stringResource(R.string.email_placeholder)
             )
             Spacer(modifier = Modifier.height(16.dp))
             AppTextField(
                 value = password.value,
-                onValueChange = { password.value = it },
+                onValueChange = { password.value = it
+                    viewModel.updatePassword(password.value)},
                 title = stringResource(R.string.password),
                 placeholder = stringResource(R.string.password_placeholder),
                 isSecure = true
@@ -125,7 +132,9 @@ fun LoginScreenContent(
             Spacer(modifier = Modifier.height(77.dp))
             AppPrimaryButton(
                 title = stringResource(R.string.login),
-                onClick = { }
+                onClick = {
+                    viewModel.login()
+                }
             )
             Spacer(modifier = Modifier.height(30.dp))
             Box(
@@ -146,16 +155,4 @@ fun LoginScreenContent(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun LoginScreenPreview(
-    showBackground: Boolean = true
-) {
-    LoginScreen(
-        onLoginSuccess = { },
-        navigateToRegister = { },
-        navigateToForgetPassword = {}
-    )
 }

@@ -37,6 +37,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.instaresolv.R
+import com.example.instaresolv.data.model.WelcomeScreenContent
+import com.example.instaresolv.typography.InterFontFamily
 import kotlinx.coroutines.launch
 
 @Composable
@@ -146,7 +148,9 @@ fun WelcomeScreen(
                 if (pagerState.currentPage == 0) {
                     Text(
                         stringResource(R.string.welcome_to),
-                        color = Color.Gray
+                        color = Color.Gray,
+                        fontFamily = InterFontFamily,
+                        fontSize = 14.sp
                     )
 
                     Spacer(Modifier.height(24.dp))
@@ -166,6 +170,7 @@ fun WelcomeScreen(
                         textAlign = TextAlign.Center,
 
                         color = Color.Black,
+                        fontFamily = InterFontFamily,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 20.dp)
@@ -181,7 +186,8 @@ fun WelcomeScreen(
                         pagerState.currentPage.let { pages[it] }.description,
 
                     textAlign = TextAlign.Center,
-
+                    fontFamily = InterFontFamily,
+                    fontSize = 14.sp,
                     color = Color.Gray
                 )
 
@@ -303,11 +309,3 @@ class BottomSheetCurve : Shape {
     }
 
 }
-
-data class WelcomeScreenContent(
-
-    val title: String,
-
-    val description: String
-
-)

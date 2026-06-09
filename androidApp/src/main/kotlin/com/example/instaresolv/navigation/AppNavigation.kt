@@ -4,13 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navigation
+import com.example.instaresolv.login.LoginViewModel
 import com.example.instaresolv.ui.ForgetPasswordScreen
 import com.example.instaresolv.ui.LoginScreen
 import com.example.instaresolv.ui.OTPVerificationScreen
 import com.example.instaresolv.ui.RegisterScreen
 import com.example.instaresolv.ui.SplashScreen
 import com.example.instaresolv.ui.WelcomeScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AppNavigation() {
@@ -30,6 +31,7 @@ fun AppNavigation() {
             )
         }
         composable(Screens.Login.route) {
+            val viewModel: LoginViewModel = koinViewModel()
             LoginScreen(
                 onLoginSuccess = { },
                 navigateToRegister = {
@@ -37,7 +39,8 @@ fun AppNavigation() {
                 },
                 navigateToForgetPassword = {
                     navController.navigate(Screens.ForgetPasswordScreen.route)
-                }
+                },
+                viewModel
             )
         }
         composable(Screens.WelcomeScreen.route) {
