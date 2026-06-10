@@ -2,11 +2,16 @@ package com.example.instaresolv.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
+import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -42,3 +47,14 @@ internal fun HttpClientConfig<*>.commonConfig() {
 }
 
 expect fun createHttpClient(): HttpClient
+
+suspend inline fun <reified T> HttpClient.postBody(
+    url: String,
+    body: Any
+): T {
+
+    return post(url) {
+        contentType(ContentType.Application.Json)
+        setBody(body)
+    }.body()
+}

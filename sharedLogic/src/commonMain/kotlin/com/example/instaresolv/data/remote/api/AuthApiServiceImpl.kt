@@ -2,6 +2,9 @@ package com.example.instaresolv.data.remote.api
 
 import com.example.instaresolv.data.model.LoginRequest
 import com.example.instaresolv.data.model.LoginResponse
+import com.example.instaresolv.network.ApiResult
+import com.example.instaresolv.network.postBody
+import com.example.instaresolv.network.safeApiCall
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
@@ -12,28 +15,18 @@ import io.ktor.http.contentType
 class AuthApiServiceImpl(
     private val httpClient: HttpClient
 ) : AuthApiService {
-
     override suspend fun login(
         request: LoginRequest
-    ): LoginResponse {
+    ): ApiResult<LoginResponse> {
 
-        try {
+        return safeApiCall {
 
-            val response = httpClient.post("user/login") {
-                contentType(ContentType.Application.Json)
-                setBody(request)
-            }
+            httpClient.postBody(
+                url = "user/login",
+                body = request
+            )
 
-            println("Status: ${response.status}")
-
-            return response.body()
-
-        } catch (e: Exception) {
-
-            println("API ERROR: ${e.message}")
-            e.printStackTrace()
-
-            throw e
         }
     }
+
 }

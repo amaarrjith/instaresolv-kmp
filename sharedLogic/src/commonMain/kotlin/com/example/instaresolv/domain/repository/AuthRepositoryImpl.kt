@@ -3,6 +3,7 @@ package com.example.instaresolv.domain.repository
 import com.example.instaresolv.data.model.LoginRequest
 import com.example.instaresolv.data.model.LoginResponse
 import com.example.instaresolv.data.remote.api.AuthApiService
+import com.example.instaresolv.network.ApiResult
 
 class AuthRepositoryImpl(
     private val apiService: AuthApiService
@@ -11,7 +12,7 @@ class AuthRepositoryImpl(
     override suspend fun login(
         email: String,
         password: String
-    ): LoginResponse {
+    ): ApiResult<LoginResponse> {
         return apiService.login(
             LoginRequest(
                 email = email,
